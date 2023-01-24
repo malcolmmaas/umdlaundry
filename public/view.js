@@ -18,6 +18,9 @@ const db = getDatabase(app);
 var selectedMachine = ''
 var selectedDorm = ''
 
+var modal = document.getElementById("myModal");
+
+var recentData = []
 function generateForm() {
     const dormCounts = {
         'ellicott': {
@@ -29,7 +32,7 @@ function generateForm() {
     // var dbRef = ref(db, '/' + selectedDorm + '/' + selectedMachine + '/10')
     // var dbRef = db.ref('/' + selectedDorm + '/' + selectedMachine + '/10')
     
-    var recentData = []
+    recentData = []
     var machineCount = dormCounts[selectedDorm][selectedMachine]
     for (const x of Array(machineCount).keys()) {
         var dbRef = query(ref(db, '/' + selectedDorm + '/' + selectedMachine + '/' + (x+1)), limitToLast(5));
@@ -60,7 +63,7 @@ function generateForm() {
                 }
                 console.log(recentComments)
 
-                machineListContent += '<div class="machine" id="machine'+(x+1)+'"><span class="machineLabel"></span>#'+(x+1)+
+                machineListContent += '<div class="machine" id="machine'+(x+1)+'" onclick="unitSelect('+x+')"><span class="machineLabel"></span>#'+(x+1)+
                     '</span><span class="rating">Recent ratings: '+recentRatings.join(', ')+'</span><br><div class="comments">'+
                     recentComments+'</div></div>'
             }
@@ -71,6 +74,21 @@ function generateForm() {
     }
 
     // document.getElementById('refImg').src = 'images/'+selectedDorm+' '+selectedMachine+'s.jpg'
+}
+
+function unitSelect(unit) {
+    console.log(recentData[unit])
+    var reviewListContent = ''
+    for (let [dtms, data] of Object.entries(recentData[unit])) {
+        // console.log(dtms)
+        var dt = new Date(parseInt(dtms))
+        // console.log(dt)
+        reviewListContent += '<div class="review"><b><span class="reviewTime">'+dt.toLocaleString()+'</span><span class="rating">'+
+            data['rating']+'</span></b><br><span class="comments">'+data['comments']+'</span></div>'
+    }
+
+    document.getElementById('reviewlist').innerHTML = reviewListContent
+    modal.style.display = 'block'
 }
 
 function dormSelect() {
@@ -91,5 +109,15 @@ function machineSelect(machine) {
     if (selectedDorm != '') generateForm()
 }
 
+document.getElementsByClassName("close")[0].onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
 window.dormSelect = dormSelect
 window.machineSelect = machineSelect
+window.unitSelect = unitSelect

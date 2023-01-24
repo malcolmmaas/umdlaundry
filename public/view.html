@@ -11,6 +11,32 @@
   </head>
 
   <body>
+    <div id="myModal" class="modal">
+      <div class="modalContent">
+        <span class="close">&times;</span>
+        Recent reviews for #10
+        <div id="reviewlist">
+          <div class="review">
+            <b>
+              <span class="reviewTime">This is the time</span>
+              <span class="rating">8</span>
+            </b>
+            <br>
+            <span class="comments">Dryer sdo flsfkj keld</span>
+          </div>
+          <div class="review">
+            <b>
+              <span class="reviewTime">This is the time</span>
+              <span class="rating">8</span>
+            </b>
+            <br>
+            <span class="comments">Dryer sdo flsfkj keld</span>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+
     <div id="header">
       <h3 style="display: inline-block; margin-top: 6px; margin-bottom: 6px; vertical-align: middle;">Recent reviews</h3>
       <a href="submit.html" class="button" style="float: right;">Submit a review</a>
@@ -32,7 +58,7 @@
       <br>
       <!-- List of machines -->
       <div id="list">
-        <div class="machine" id="machine1">
+        <div class="machine" id="machine1" onclick="unitSelect(1)">
           <span class="machineLabel">#10</span>
           <span class="rating">Recent ratings: 8, 10, 9</span>
           <br>
