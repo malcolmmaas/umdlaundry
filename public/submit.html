@@ -4,23 +4,26 @@
     <link rel="icon" type="image/x-icon" href="https://aosc.umd.edu/sites/default/files/favicon%20%281%29.ico">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UMDLaundry - submit report</title>
+    <title>UMDLaundry - submit review</title>
     <link rel="stylesheet" href="master.css">
     <script type="module" src="submit.js"></script>
 </head>
 <body>
-    <h3>Report submission</h3>
+    <div id="header">
+      <h3 style="display: inline-block; margin-top: 6px; margin-bottom: 6px; vertical-align: middle;">Review form</h3>
+      <a href="view.html" class="button" style="float: right;">Recent reviews</a>
+    </div>
+    <!-- <h3>Review submission</h3> -->
     Choose your dorm:
     <select autofocus name="dorm" id="dorm" onchange="dormSelect()">
         <option value="none">-- Select --</option>
         <option value="ellicott">Ellicott</option>
     </select>
-    <br><br>
+    <br>
     Washer or dryer?
     <a class="button" id="washer" onclick="machineSelect('washer')">Washer</a>
     <a class="button" id="dryer" onclick="machineSelect('dryer')">Dryer</a>
-    <br><br>
-
+    <br>
 
     <div id="restOfForm" style="display: none;">
         Use the reference image below to select your machine from the dropdown:
@@ -32,7 +35,7 @@
         <br><br>
         Rate your experience with the machine.
         <br>
-        1 = didn't work
+        1 = didn't work at all
         <br>
         10 = worked perfectly
         <br>
@@ -43,7 +46,7 @@
         <br>
         <input type="text" id="comments">
         <br><br>
-        <a class="button" onclick="submitReport()">Submit</a>
+        <a class="button" onclick="submitReport()">Submit</a><span id="submitConfirmation">Thanks! Submitted at 12:50:15 PM.</span>
     </div>
 
 </body>

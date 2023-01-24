@@ -88,6 +88,8 @@ function submitReport() {
         return false
     }
 
+    document.getElementById('submitConfirmation').innerHTML = 'Thanks! Submitted at ' + new Date().toLocaleTimeString() + '.'
+
     return false
 }
 

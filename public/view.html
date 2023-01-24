@@ -6,7 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UMDLaundry - view status</title>
     <link rel="stylesheet" href="master.css">
+    <!-- <link rel="stylesheet" href="view.css"> -->
     <script type="module" src="view.js"></script>
   </head>
 
+  <body>
+    <div id="header">
+      <h3 style="display: inline-block; margin-top: 6px; margin-bottom: 6px; vertical-align: middle;">Recent reviews</h3>
+      <a href="submit.html" class="button" style="float: right;">Submit a review</a>
+    </div>
+    <!-- <br> -->
+    Choose your dorm:
+    <select autofocus name="dorm" id="dorm" onchange="dormSelect()">
+        <option value="none">-- Select --</option>
+        <option value="ellicott">Ellicott</option>
+    </select>
+    <br>
+    Washer or dryer?
+    <a class="button" id="washer" onclick="machineSelect('washer')">Washer</a>
+    <a class="button" id="dryer" onclick="machineSelect('dryer')">Dryer</a>
+    <br>
+    
+    <div id="restOfForm" style="display: block;">
+      <!-- Sort by thingy that also regenerates list html -->
+      <br>
+      <!-- List of machines -->
+      <div id="list">
+        <div class="machine" id="machine1">
+          <span class="machineLabel">#10</span>
+          <span class="rating">Recent ratings: 8, 10, 9</span>
+          <br>
+          <div class="comments">
+            Recent comments:
+            <br>
+            <span class="comment">handle fell off</span>
+            <br>
+            <span class="comment">wow! new!</span>
+          </div>
+        </div>
+        <div class="machine" id="machine2">
+          <span class="machineLabel">#10</span>
+          <span class="rating">Recent ratings: 8, 10, 9</span>
+          <br>
+          <div class="comments">
+            Recent comments:
+            <br>
+            <span class="comments">handle fell off</span>
+            <br>
+            <span class="comments">wow! new!</span>
+          </div>        
+        </div>
+      </div>
+      <!-- THERE SHOULD BE SOME WAY TO PULL UP THE REFERENCE IMAGE FROM HERE! -->
+  </div>
+  </body>
 </html>
