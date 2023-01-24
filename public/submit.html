@@ -5,7 +5,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UMDLaundry - submit report</title>
+    <link rel="stylesheet" href="master.css">
     <script type="module" src="submit.js"></script>
 </head>
+<body>
+    <h3>Report submission</h3>
+    Choose your dorm:
+    <select autofocus name="dorm" id="dorm" onchange="dormSelect()">
+        <option value="none">-- Select --</option>
+        <option value="ellicott">Ellicott</option>
+    </select>
+    <br><br>
+    Washer or dryer?
+    <a class="button" id="washer" onclick="machineSelect('washer')">Washer</a>
+    <a class="button" id="dryer" onclick="machineSelect('dryer')">Dryer</a>
+    <br><br>
 
+
+    <div id="restOfForm" style="display: none;">
+        Use the reference image below to select your machine from the dropdown:
+        <br>
+        <img src="" alt="" id="refImg">
+        <br>
+        <select name="unit" id="unit">
+        </select>
+        <br><br>
+        Rate your experience with the machine.
+        <br>
+        1 = didn't work
+        <br>
+        10 = worked perfectly
+        <br>
+        <input type="range" id="rating" name="rating" min="0" max="10" oninput="document.getElementById('sliderLabel').innerHTML = this.value">
+        <span id="sliderLabel">10</span>
+        <br><br>
+        Comments:
+        <br>
+        <input type="text" id="comments">
+        <br><br>
+        <a class="button" onclick="submitReport()">Submit</a>
+    </div>
+
+</body>
 </html>
