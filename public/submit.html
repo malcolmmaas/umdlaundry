@@ -9,45 +9,51 @@
     <script type="module" src="submit.js"></script>
 </head>
 <body>
-    <div id="header">
-      <h3 style="display: inline-block; margin-top: 6px; margin-bottom: 6px; vertical-align: middle;">Review form</h3>
-      <a href="view.html" class="button" style="float: right;">Recent reviews</a>
-    </div>
-    <!-- <h3>Review submission</h3> -->
-    Choose your dorm:
+  <div id="header">
+    <h3>Review form</h3>
+    <a href="view.html" class="button" style="float: right;">Recent reviews</a>
+  </div>
+  <div id="formBody">
+    <b id="dormLabel">Dorm</b>
     <select autofocus name="dorm" id="dorm" onchange="dormSelect()">
         <option value="none">-- Select --</option>
         <option value="ellicott">Ellicott</option>
     </select>
-    <br>
-    Washer or dryer?
+    <div class="break"></div>
+    <!-- <br> -->
+    <!-- Washer or dryer? -->
     <a class="button" id="washer" onclick="machineSelect('washer')">Washer</a>
     <a class="button" id="dryer" onclick="machineSelect('dryer')">Dryer</a>
     <br>
 
     <div id="restOfForm" style="display: none;">
-        Use the reference image below to select your machine from the dropdown:
-        <br>
-        <img src="" alt="" id="refImg">
-        <br>
-        <select name="unit" id="unit">
-        </select>
-        <br><br>
-        Rate your experience with the machine.
-        <br>
-        1 = didn't work at all
-        <br>
-        10 = worked perfectly
-        <br>
-        <input type="range" id="rating" name="rating" min="0" max="10" oninput="document.getElementById('sliderLabel').innerHTML = this.value">
-        <span id="sliderLabel">10</span>
-        <br><br>
-        Comments:
-        <br>
-        <input type="text" id="comments">
-        <br><br>
-        <a class="button" onclick="submitReport()">Submit</a><span id="submitConfirmation">Thanks! Submitted at 12:50:15 PM.</span>
+      <div class="break"></div>
+      <b>Select your machine from the dropdown:</b>
+      <br>
+      <img src="" alt="" id="refImg">
+      <br>
+      <select name="unit" id="unit">
+      </select>
+      <div class="break"></div>
+      <!-- <br> -->
+      <b>Rate your experience with the machine.</b>
+      <br>
+      1 = didn't work at all
+      <br>
+      10 = worked perfectly
+      <br>
+      <input type="range" id="rating" name="rating" min="0" max="10" oninput="updateSlider(this)">
+      <span id="sliderLabel">10</span>
+      <br>
+      <div class="break"></div>
+      <b>Comments:</b>
+      <br>
+      <input type="text" id="comments">
+      <br>
+      <!-- <div class="break"></div> -->
+      <a class="button" onclick="submitReport()">Submit</a><span id="submitConfirmation">Thanks! Submitted at 12:50:15 PM.</span>
     </div>
+  </div>
 
 </body>
 </html>

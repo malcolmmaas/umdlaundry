@@ -1,39 +1,125 @@
 body {
     font-family: Roboto,arial,sans-serif;
     line-height: 1.4;
+    background-color: #fefefe;
+}
+#header {
+    /* padding-bottom: 4px; */
+    border-bottom: 1px solid;
 }
 .button {
     display: inline-block;
     padding: 8px 16px;
-    vertical-align: middle;
-    overflow: hidden;
     text-decoration: none;
     color: inherit;
-    background-color: #dddddd;
-    text-align: center;
-    cursor: pointer;
-    white-space: nowrap;
+    background-color: #e5e5e5;
+    font-weight: bold;
+    font-size: 14pt;
 }
+.break {
+    margin: 6px auto;
+    border-bottom: 1px solid #26bdbd;
+    width: 90%;
+    display: block;
+}
+h3 {
+    font-size: 16pt;
+    display: inline-block;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+}
+#formBody {
+    text-align: center;
+}
+#dormLabel {
+    font-size: 15pt;
+    margin-right: 8px;
+}
+#sortLabel {
+    font-size: 14pt;
+    margin-right: 8px;
+}
+#dorm, #unit, #sortSelect {
+    font-size: 14pt;
+    height: 30px;
+}
+#sortSelect {
+    margin-top: 10px;
+}
+#unit {
+    /* margin-bottom: 14px; */
+}
+#dorm {
+    margin-top: 12px;
+}
+#formBody .button {
+    font-weight: bold;
+    /* margin-top: 14px; */
+    font-size: 14pt;
+}
+/* #washer, #dryer {
+} */
 #refImg {
-    width: 100%
+    width: 100%;
+    margin-top: 4px;
+}
+#restOfForm {
+    /* margin-top: 14px; */
 }
 #sliderLabel {
-    width: 100%
+    position: fixed;
+    width: 20px;
+    margin: 3px;
 }
 #comments {
-    width: 100%;
+    width: 95%;
+    margin-bottom: 20px;
     /* height: 60px; */
 }
-div {
+/* div {
     border: 1px solid;
-}
+} */
 .machine {
+    box-shadow: rgb(149 157 165 / 20%) 0px 0px 8px;
     margin-top: 10px;
+    padding: 6px 10px;
+    background-color: #32c248;
+    border-radius: 5px;
+}
+.machineLabel {
+    font-weight: bold
+}
+#list {
+    text-align: left;
 }
 .rating {
     margin-left: auto;
     margin-right: 0;
     float: right;
+}
+.review {
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-top: 6px;
+}
+#submitConfirmation {
+    display: none;
+    padding-left: 8px;
+}
+#rating {
+    -webkit-appearance: none;
+    background: #32c248;
+    border-radius: 10px;
+    width: 60%;
+    margin-bottom: 0;
+}
+#rating::-webkit-slider-thumb {
+    background-color: black;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 22px;
+    border-radius: 10px;
 }
 
 .modal {

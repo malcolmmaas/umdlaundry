@@ -18,6 +18,14 @@ const db = getDatabase(app);
 var selectedMachine = ''
 var selectedDorm = ''
 
+var paramString = window.location.href
+var searchParams = new URLSearchParams(paramString.substring(paramString.indexOf('?')))
+var dorm = searchParams.get('dorm')
+if (dorm != null) {
+    selectedDorm = dorm
+    document.getElementById('dorm').value = dorm
+}
+
 function generateForm() {
     const dormCounts = {
         'ellicott': {
@@ -26,7 +34,6 @@ function generateForm() {
         }
     }
 
-    
     var dropdownContent = '<option value="none">-- Select --</option>'
     console.log(selectedDorm)
     console.log(selectedMachine)
@@ -52,11 +59,11 @@ function dormSelect() {
 function machineSelect(machine) {
     selectedMachine = machine
     if (machine == 'dryer') {
-        document.getElementById('dryer').style.backgroundColor = '#aaaaaa'
-        document.getElementById('washer').style.backgroundColor = '#dddddd'
+        document.getElementById('dryer').style.backgroundColor = '#bfbfbf'
+        document.getElementById('washer').style.backgroundColor = '#e5e5e5'
     } else {
-        document.getElementById('washer').style.backgroundColor = '#aaaaaa'
-        document.getElementById('dryer').style.backgroundColor = '#dddddd'
+        document.getElementById('washer').style.backgroundColor = '#bfbfbf'
+        document.getElementById('dryer').style.backgroundColor = '#e5e5e5'
     }
     if (selectedDorm != '') generateForm()
 }
@@ -88,11 +95,33 @@ function submitReport() {
         return false
     }
 
+    document.getElementById('submitConfirmation').style.display = 'inline'
     document.getElementById('submitConfirmation').innerHTML = 'Thanks! Submitted at ' + new Date().toLocaleTimeString() + '.'
 
     return false
 }
 
+const sliderColors = [
+    '#32c248',
+    '#71c267',
+    '#9ac57c',
+    '#bbcb75',
+    '#ddd06e',
+    '#ffd666',
+    '#fbc568',
+    '#f6b36b',
+    '#f0a06d',
+    '#eb8e70',
+    '#e67c73',
+]
+sliderColors.reverse()
+
+function updateSlider(element) {
+    document.getElementById('sliderLabel').innerHTML = element.value
+    document.getElementById('rating').style.background = sliderColors[element.value]
+}
+
+window.updateSlider = updateSlider
 window.submitReport = submitReport
 window.dormSelect = dormSelect
 window.machineSelect = machineSelect

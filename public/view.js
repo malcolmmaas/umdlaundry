@@ -18,6 +18,29 @@ const db = getDatabase(app);
 var selectedMachine = ''
 var selectedDorm = ''
 
+const sliderColors = [
+    '#32c248',
+    '#71c267',
+    '#9ac57c',
+    '#bbcb75',
+    '#ddd06e',
+    '#ffd666',
+    '#fbc568',
+    '#f6b36b',
+    '#f0a06d',
+    '#eb8e70',
+    '#e67c73',
+]
+sliderColors.reverse()
+
+var paramString = window.location.href
+var searchParams = new URLSearchParams(paramString.substring(paramString.indexOf('?')))
+var dorm = searchParams.get('dorm')
+if (dorm != null) {
+    selectedDorm = dorm
+    document.getElementById('dorm').value = dorm
+}
+
 var modal = document.getElementById("myModal");
 
 var recentData = []
@@ -41,29 +64,57 @@ function generateForm() {
         console.log('/' + selectedDorm + '/' + selectedMachine + '/' + (x+1))
         onValue(dbRef, (snapshot) => {
             console.log(snapshot.val())
-            recentData.push(snapshot.val())
+            var machineInfo = snapshot.val()
+            console.log('[[[[[[[[[[[[[[[[[')
+            if (machineInfo != null) {
+                var maxdtms = 0
+                var ratingList = []
+                for (let [dtms, data] of Object.entries(machineInfo)) {
+                    // console.log(dtms)
+                    if (dtms > maxdtms) maxdtms = dtms
+                    ratingList.push(parseInt(data['rating']))
+                }
+                machineInfo['avgRating'] = ratingList.reduce((a, b) => a + b/ratingList.length)
+                machineInfo['maxdtms'] = maxdtms
+                machineInfo['number'] = (x+1)
+
+                recentData.push(machineInfo)
+                console.log(machineInfo)
+            }
             if (x+1 == machineCount) generateMachineList()
         });
     }
 
     function generateMachineList() {
         console.log('YADDA YADADADA')
+        console.log(recentData)
         var machineListContent = ''
-        for (const x of Array(machineCount).keys()) {
+        for (const x of recentData.keys()) {
             var machineData = recentData[x]
             var recentComments = 'Recent comments:'
             var recentRatings = []
+            var numComments = 0
             console.log(machineData)
+            console.log(Object.entries(machineData))
             console.log(')))))))))))')
 
             if (machineData != null) {
                 for (let [dtms, data] of Object.entries(machineData)) {
-                    if (data['comments'] != '') recentComments += '<br><span class="comment">' + data['comments'] + '</span>'
+                    if (data['comments'] != '' && data['comments'] != undefined && numComments <= 2) {
+                        recentComments += '<br><span class="comment">- ' + data['comments'] + '</span>'
+                        numComments++
+                    }
+                    console.log(data)
                     if (recentRatings.length < 3) recentRatings.push(data['rating'])
                 }
                 console.log(recentComments)
 
-                machineListContent += '<div class="machine" id="machine'+(x+1)+'" onclick="unitSelect('+x+')"><span class="machineLabel"></span>#'+(x+1)+
+                console.log('====================')
+                console.log(recentRatings)
+                if (recentComments == 'Recent comments:') recentComments = ''
+                machineListContent += '<div class="machine" id="machine'+machineData['number']+
+                    '" style="background-color: '+ sliderColors[Math.round(machineData['avgRating'])] +'ee;'+
+                    '" onclick="unitSelect('+x+')"><span class="machineLabel">#'+machineData['number']+
                     '</span><span class="rating">Recent ratings: '+recentRatings.join(', ')+'</span><br><div class="comments">'+
                     recentComments+'</div></div>'
             }
@@ -76,6 +127,10 @@ function generateForm() {
     // document.getElementById('refImg').src = 'images/'+selectedDorm+' '+selectedMachine+'s.jpg'
 }
 
+function sortSelect() {
+
+}
+
 function unitSelect(unit) {
     console.log(recentData[unit])
     var reviewListContent = ''
@@ -83,7 +138,8 @@ function unitSelect(unit) {
         // console.log(dtms)
         var dt = new Date(parseInt(dtms))
         // console.log(dt)
-        reviewListContent += '<div class="review"><b><span class="reviewTime">'+dt.toLocaleString()+'</span><span class="rating">'+
+        reviewListContent += '<div class="review" style="background-color:'+sliderColors[data['rating']]+
+            '"><b><span class="reviewTime">'+dt.toLocaleString()+'</span><span class="rating">'+
             data['rating']+'</span></b><br><span class="comments">'+data['comments']+'</span></div>'
     }
 
@@ -100,24 +156,37 @@ function dormSelect() {
 function machineSelect(machine) {
     selectedMachine = machine
     if (machine == 'dryer') {
-        document.getElementById('dryer').style.backgroundColor = '#aaaaaa'
-        document.getElementById('washer').style.backgroundColor = '#dddddd'
+        document.getElementById('dryer').style.backgroundColor = '#bfbfbf'
+        document.getElementById('washer').style.backgroundColor = '#e5e5e5'
     } else {
-        document.getElementById('washer').style.backgroundColor = '#aaaaaa'
-        document.getElementById('dryer').style.backgroundColor = '#dddddd'
+        document.getElementById('washer').style.backgroundColor = '#bfbfbf'
+        document.getElementById('dryer').style.backgroundColor = '#e5e5e5'
     }
     if (selectedDorm != '') generateForm()
 }
 
-document.getElementsByClassName("close")[0].onclick = function() {
-  modal.style.display = "none";
+document.getElementsByClassName('close')[0].onclick = function() {
+    modal.style.display = 'none';
 }
+// document.getElementById('myModal').onclick = function() {
+//     modal.style.display = "none";
+// }
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+    modal.style.display = 'none';
   }
 }
+// window.ontouchstart = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
+// modal.ontouchstart = function() {
+//     modal.style.display = "none";
+// }
+// document.addEventListener('touchstart', () => modal.style.display = 'none')
 
+window.sortSelect = sortSelect
 window.dormSelect = dormSelect
 window.machineSelect = machineSelect
 window.unitSelect = unitSelect
