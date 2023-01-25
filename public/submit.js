@@ -21,10 +21,23 @@ var selectedDorm = ''
 var paramString = window.location.href
 var searchParams = new URLSearchParams(paramString.substring(paramString.indexOf('?')))
 var dorm = searchParams.get('dorm')
-if (dorm != null) {
-    selectedDorm = dorm
+var machine = searchParams.get('machine')
+if (dorm != null && dorm != '') {
     document.getElementById('dorm').value = dorm
+    dormSelect(dorm)
 }
+if (machine != null && machine != '') machineSelect(machine)
+
+// if (dorm != null) {
+//     selectedDorm = dorm
+//     document.getElementById('dorm').value = dorm
+//     document.getElementById('headerBtn').href = 'submit.html?dorm='+selectedDorm
+// }
+// if (machine != null) {
+//     selectedMachine = machine
+//     document.getElementById('dorm').value = dorm
+//     document.getElementById('headerBtn').href = 'submit.html?dorm='+selectedDorm
+// }
 
 function generateForm() {
     const dormCounts = {
@@ -52,12 +65,16 @@ function generateForm() {
 
 function dormSelect() {
     console.log(document.getElementById('dorm').value)
-    if (document.getElementById('dorm').value != 'none') selectedDorm = document.getElementById('dorm').value
+    if (document.getElementById('dorm').value != 'none') {
+        selectedDorm = document.getElementById('dorm').value
+        document.getElementById('headerBtn').href = 'view.html?dorm='+selectedDorm+'&machine='+selectedMachine
+    }
     if (selectedMachine != '') generateForm()
 }
 
 function machineSelect(machine) {
     selectedMachine = machine
+    document.getElementById('headerBtn').href = 'view.html?dorm='+selectedDorm+'&machine='+selectedMachine
     if (machine == 'dryer') {
         document.getElementById('dryer').style.backgroundColor = '#bfbfbf'
         document.getElementById('washer').style.backgroundColor = '#e5e5e5'
@@ -84,6 +101,8 @@ function submitReport() {
         update(ref(db, '/' + selectedDorm + '/' + selectedMachine + '/' + unit.toString() + '/' + Date.now().toString()), {
             'rating': rating,
             'comments': comments,
+        }).then(() => {
+            window.location.replace('view.html?dorm='+selectedDorm+'&machine='+selectedMachine)
         }).catch((error) => {
             console.log('BBBBBBBBBBBBB')
             console.error(error);
@@ -95,8 +114,10 @@ function submitReport() {
         return false
     }
 
-    document.getElementById('submitConfirmation').style.display = 'inline'
-    document.getElementById('submitConfirmation').innerHTML = 'Thanks! Submitted at ' + new Date().toLocaleTimeString() + '.'
+    // document.getElementById('submitConfirmation').innerHTML = 'Thanks! Submitted at ' + new Date().toLocaleTimeString() + '.'
+    // document.getElementById('submitConfirmation').style.display = 'inline'
+
+
 
     return false
 }

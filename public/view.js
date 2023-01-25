@@ -36,10 +36,12 @@ sliderColors.reverse()
 var paramString = window.location.href
 var searchParams = new URLSearchParams(paramString.substring(paramString.indexOf('?')))
 var dorm = searchParams.get('dorm')
-if (dorm != null) {
-    selectedDorm = dorm
+var machine = searchParams.get('machine')
+if (dorm != null && dorm != '') {
     document.getElementById('dorm').value = dorm
+    dormSelect(dorm)
 }
+if (machine != null && machine != '') machineSelect(machine)
 
 var modal = document.getElementById("myModal");
 
@@ -146,7 +148,7 @@ function sortSelect(sort) {
 
 function unitSelect(unit) {
     console.log(recentData[unit])
-    var reviewListContent = ''
+    var reviewListContent = 'Recent reviews for #'+recentData[unit]['number']+'<div id="reviewlist">'
     for (let [dtms, data] of Object.entries(recentData[unit]['reviews']).reverse()) {
         // console.log(dtms)
         var dt = new Date(parseInt(dtms))
@@ -156,18 +158,22 @@ function unitSelect(unit) {
             data['rating']+'</span></b><br><span class="comments">'+data['comments']+'</span></div>'
     }
 
-    document.getElementById('reviewlist').innerHTML = reviewListContent
+    document.getElementById('listWrap').innerHTML = reviewListContent + '</div>'
     modal.style.display = 'block'
 }
 
 function dormSelect() {
     console.log(document.getElementById('dorm').value)
-    if (document.getElementById('dorm').value != 'none') selectedDorm = document.getElementById('dorm').value
+    if (document.getElementById('dorm').value != 'none') {
+        selectedDorm = document.getElementById('dorm').value
+        document.getElementById('headerBtn').href = 'submit.html?dorm='+selectedDorm+'&machine='+selectedMachine
+    }
     if (selectedMachine != '') generateForm()
 }
 
 function machineSelect(machine) {
     selectedMachine = machine
+    document.getElementById('headerBtn').href = 'submit.html?dorm='+selectedDorm+'&machine='+selectedMachine
     if (machine == 'dryer') {
         document.getElementById('dryer').style.backgroundColor = '#bfbfbf'
         document.getElementById('washer').style.backgroundColor = '#e5e5e5'

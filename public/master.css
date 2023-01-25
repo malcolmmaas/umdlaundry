@@ -134,6 +134,7 @@ footer {
     width: 83%;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 #imgModal .modalContent {
