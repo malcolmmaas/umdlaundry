@@ -85,8 +85,12 @@ function generateForm() {
             if (x+1 == machineCount) generateMachineList()
         });
     }
+}
 
-    // document.getElementById('refImg').src = 'images/'+selectedDorm+' '+selectedMachine+'s.jpg'
+function refImg() {
+    console.log('THINKG SIEK DML')
+    document.getElementById('refImg').src = 'images/'+selectedDorm+' '+selectedMachine+'s.jpg'
+    document.getElementById('imgModal').style.display = 'block'
 }
 
 function generateMachineList() {
@@ -175,6 +179,11 @@ function machineSelect(machine) {
 }
 
 document.getElementsByClassName('close')[0].onclick = function() {
+    document.getElementById('imgModal').style.display = 'none'
+    modal.style.display = 'none';
+}
+document.getElementsByClassName('close')[1].onclick = function() {
+    document.getElementById('imgModal').style.display = 'none'
     modal.style.display = 'none';
 }
 // document.getElementById('myModal').onclick = function() {
@@ -195,6 +204,7 @@ window.onclick = function(event) {
 // }
 // document.addEventListener('touchstart', () => modal.style.display = 'none')
 
+window.refImg = refImg
 window.sortSelect = sortSelect
 window.dormSelect = dormSelect
 window.machineSelect = machineSelect

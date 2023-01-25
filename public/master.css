@@ -16,6 +16,12 @@ body {
     font-weight: bold;
     font-size: 14pt;
 }
+#imgBtn {
+    padding: 6px 10px;
+    font-weight: normal;
+    font-size: 12pt;
+    margin-top: 4px;
+}
 .break {
     margin: 14px auto;
     /* border-bottom: 1px solid #26bdbd; */
@@ -55,11 +61,6 @@ h3 {
 }
 #dorm {
     margin-top: 12px;
-}
-#formBody .button {
-    font-weight: bold;
-    /* margin-top: 14px; */
-    font-size: 14pt;
 }
 /* #washer, #dryer {
 } */
@@ -135,6 +136,11 @@ footer {
     margin-right: auto;
 }
 
+#imgModal .modalContent {
+    width: 98%;
+    margin: .2%;
+    padding: 6px 2px 0px 2px;
+}
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

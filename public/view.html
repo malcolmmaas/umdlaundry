@@ -37,6 +37,13 @@
     
     </div>
 
+    <div id="imgModal" class="modal">
+      <div class="modalContent">
+        <span class="close">&times;</span>
+        <img src="" alt="" id="refImg">
+      </div>
+    </div>
+
     <div id="header">
       <h3>Recent reviews</h3>
       <a href="submit.html" class="button" style="float: right;">Submit a review</a>
@@ -58,6 +65,8 @@
       <div id="restOfForm" style="display: none;">
         <div id="sortHeader">
           Tap a machine to see review details.<br>
+          <a class="button" id="imgBtn" onclick="refImg()">Show reference image</a>
+          <br>
           <span id="sortLabel">Sort by</span>
           <select id="sortSelect" onchange="sortSelect(this.value)">
             <option value="number">Number</option>
