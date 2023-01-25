@@ -57,8 +57,10 @@
       
       <div id="restOfForm" style="display: none;">
         <div id="sortHeader">
+          Tap a machine to see review details.<br>
           <span id="sortLabel">Sort by</span>
-          <select id="sortSelect" onchange="sortSelect()">
+          <select id="sortSelect" onchange="sortSelect(this.value)">
+            <option value="number">Number</option>
             <option value="time">Recent reviews</option>
             <option value="rating">Rating</option>
           </select>
@@ -95,4 +97,8 @@
       </div>
     </div>
   </body>
+
+<footer>
+  By Malcolm Maas. Contact me: mmaas@umd.edu
+</footer>
 </html>

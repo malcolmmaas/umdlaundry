@@ -17,8 +17,8 @@ body {
     font-size: 14pt;
 }
 .break {
-    margin: 6px auto;
-    border-bottom: 1px solid #26bdbd;
+    margin: 14px auto;
+    /* border-bottom: 1px solid #26bdbd; */
     width: 90%;
     display: block;
 }
@@ -39,6 +39,9 @@ h3 {
 #sortLabel {
     font-size: 14pt;
     margin-right: 8px;
+}
+#sortHeader {
+    padding-top: 6px;
 }
 #dorm, #unit, #sortSelect {
     font-size: 14pt;
@@ -81,7 +84,7 @@ h3 {
     border: 1px solid;
 } */
 .machine {
-    box-shadow: rgb(149 157 165 / 20%) 0px 0px 8px;
+    box-shadow: rgb(149 157 165 / 32%) 0px 3px 8px;
     margin-top: 10px;
     padding: 6px 10px;
     background-color: #32c248;
@@ -120,6 +123,16 @@ h3 {
     width: 18px;
     height: 22px;
     border-radius: 10px;
+}
+footer {
+    font-size: 10pt;
+    background: #5a5a5a;
+    color: white;
+    margin-top: 20px;
+    padding: 3px 5px;
+    width: 83%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .modal {

@@ -60,81 +60,90 @@ function generateForm() {
     for (const x of Array(machineCount).keys()) {
         var dbRef = query(ref(db, '/' + selectedDorm + '/' + selectedMachine + '/' + (x+1)), limitToLast(5));
         // console.log(dbRef)
-        console.log(x)
-        console.log('/' + selectedDorm + '/' + selectedMachine + '/' + (x+1))
+        // console.log(x)
+        // console.log('/' + selectedDorm + '/' + selectedMachine + '/' + (x+1))
         onValue(dbRef, (snapshot) => {
-            console.log(snapshot.val())
-            var machineInfo = snapshot.val()
-            console.log('[[[[[[[[[[[[[[[[[')
-            if (machineInfo != null) {
+            // console.log(snapshot.val())
+            var reviews = snapshot.val()
+            // console.log('[[[[[[[[[[[[[[[[[')
+            if (reviews != null) {
                 var maxdtms = 0
                 var ratingList = []
-                for (let [dtms, data] of Object.entries(machineInfo)) {
+                for (let [dtms, data] of Object.entries(reviews)) {
                     // console.log(dtms)
                     if (dtms > maxdtms) maxdtms = dtms
                     ratingList.push(parseInt(data['rating']))
                 }
-                machineInfo['avgRating'] = ratingList.reduce((a, b) => a + b/ratingList.length)
+                var machineInfo = {'reviews': reviews}
+                machineInfo['avgRating'] = ratingList.reduce((a, b) => a + b)/ratingList.length
                 machineInfo['maxdtms'] = maxdtms
                 machineInfo['number'] = (x+1)
 
                 recentData.push(machineInfo)
-                console.log(machineInfo)
+                // console.log(machineInfo)
             }
             if (x+1 == machineCount) generateMachineList()
         });
     }
 
-    function generateMachineList() {
-        console.log('YADDA YADADADA')
-        console.log(recentData)
-        var machineListContent = ''
-        for (const x of recentData.keys()) {
-            var machineData = recentData[x]
-            var recentComments = 'Recent comments:'
-            var recentRatings = []
-            var numComments = 0
-            console.log(machineData)
-            console.log(Object.entries(machineData))
-            console.log(')))))))))))')
-
-            if (machineData != null) {
-                for (let [dtms, data] of Object.entries(machineData)) {
-                    if (data['comments'] != '' && data['comments'] != undefined && numComments <= 2) {
-                        recentComments += '<br><span class="comment">- ' + data['comments'] + '</span>'
-                        numComments++
-                    }
-                    console.log(data)
-                    if (recentRatings.length < 3) recentRatings.push(data['rating'])
-                }
-                console.log(recentComments)
-
-                console.log('====================')
-                console.log(recentRatings)
-                if (recentComments == 'Recent comments:') recentComments = ''
-                machineListContent += '<div class="machine" id="machine'+machineData['number']+
-                    '" style="background-color: '+ sliderColors[Math.round(machineData['avgRating'])] +'ee;'+
-                    '" onclick="unitSelect('+x+')"><span class="machineLabel">#'+machineData['number']+
-                    '</span><span class="rating">Recent ratings: '+recentRatings.join(', ')+'</span><br><div class="comments">'+
-                    recentComments+'</div></div>'
-            }
-        }
-
-        document.getElementById('list').innerHTML = machineListContent
-        document.getElementById('restOfForm').style.display = 'block'
-    }
-
     // document.getElementById('refImg').src = 'images/'+selectedDorm+' '+selectedMachine+'s.jpg'
 }
 
-function sortSelect() {
+function generateMachineList() {
+    // console.log('YADDA YADADADA')
+    console.log(recentData)
+    var machineListContent = ''
+    if (sortState == 'time') recentData.sort((a, b) => b['maxdtms'] - a['maxdtms'])
+    else if (sortState == 'rating') recentData.sort((a, b) => b['avgRating'] - a['avgRating'])
+    else recentData.sort((a, b) => a['number'] - b['number'])
+    for (const x of recentData.keys()) {
+        var machineData = recentData[x]
+        var reviews = machineData['reviews']
+        var recentComments = 'Recent comments:'
+        var recentRatings = []
+        var numComments = 0
+        // console.log(reviews)
+        // console.log(Object.entries(reviews))
+        // console.log(')))))))))))')
 
+        if (reviews != null) {
+            for (let [dtms, data] of Object.entries(reviews).reverse()) {
+                if (data['comments'] != '' && data['comments'] != undefined && numComments <= 2) {
+                    recentComments += '<br><span class="comment">- ' + data['comments'] + '</span>'
+                    numComments++
+                }
+                // console.log(data)
+                if (recentRatings.length < 3) recentRatings.push(data['rating'])
+            }
+            // console.log(recentComments)
+
+            // console.log('====================')
+            // console.log(recentRatings)
+            if (recentComments == 'Recent comments:') recentComments = ''
+            machineListContent += '<div class="machine" id="machine'+machineData['number']+
+                '" style="background-color: '+ sliderColors[Math.round(machineData['avgRating'])] +'ee;'+
+                '" onclick="unitSelect('+x+')"><span class="machineLabel">#'+machineData['number']+
+                '</span><span class="rating">Recent ratings: '+recentRatings.join(', ')+'</span><br><div class="comments">'+
+                recentComments+'</div></div>'
+        }
+    }
+
+    document.getElementById('list').innerHTML = machineListContent
+    document.getElementById('restOfForm').style.display = 'block'
+}
+
+var sortState = ''
+
+function sortSelect(sort) {
+    console.log(sort)
+    sortState = sort
+    generateMachineList()
 }
 
 function unitSelect(unit) {
     console.log(recentData[unit])
     var reviewListContent = ''
-    for (let [dtms, data] of Object.entries(recentData[unit])) {
+    for (let [dtms, data] of Object.entries(recentData[unit]['reviews']).reverse()) {
         // console.log(dtms)
         var dt = new Date(parseInt(dtms))
         // console.log(dt)

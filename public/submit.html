@@ -29,31 +29,27 @@
     <div id="restOfForm" style="display: none;">
       <div class="break"></div>
       <b>Select your machine from the dropdown:</b>
-      <br>
       <img src="" alt="" id="refImg">
-      <br>
       <select name="unit" id="unit">
       </select>
       <div class="break"></div>
-      <!-- <br> -->
       <b>Rate your experience with the machine.</b>
       <br>
       1 = didn't work at all
       <br>
       10 = worked perfectly
-      <br>
       <input type="range" id="rating" name="rating" min="0" max="10" oninput="updateSlider(this)">
       <span id="sliderLabel">10</span>
-      <br>
       <div class="break"></div>
       <b>Comments:</b>
-      <br>
       <input type="text" id="comments">
-      <br>
       <!-- <div class="break"></div> -->
       <a class="button" onclick="submitReport()">Submit</a><span id="submitConfirmation">Thanks! Submitted at 12:50:15 PM.</span>
     </div>
   </div>
-
 </body>
+
+<footer>
+  By Malcolm Maas. Contact me: mmaas@umd.edu
+</footer>
 </html>
