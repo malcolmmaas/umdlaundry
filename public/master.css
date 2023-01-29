@@ -4,7 +4,6 @@ body {
     background-color: #fefefe;
 }
 #header {
-    /* padding-bottom: 4px; */
     border-bottom: 1px solid;
 }
 .button {
@@ -24,7 +23,6 @@ body {
 }
 .break {
     margin: 14px auto;
-    /* border-bottom: 1px solid #26bdbd; */
     width: 90%;
     display: block;
 }
@@ -56,20 +54,12 @@ h3 {
 #sortSelect {
     margin-top: 10px;
 }
-#unit {
-    /* margin-bottom: 14px; */
-}
 #dorm {
     margin-top: 12px;
 }
-/* #washer, #dryer {
-} */
 #refImg {
     width: 100%;
     margin-top: 4px;
-}
-#restOfForm {
-    /* margin-top: 14px; */
 }
 #sliderLabel {
     position: absolute;
@@ -79,11 +69,7 @@ h3 {
 #comments {
     width: 95%;
     margin-bottom: 20px;
-    /* height: 60px; */
 }
-/* div {
-    border: 1px solid;
-} */
 .machine {
     box-shadow: rgb(149 157 165 / 32%) 0px 3px 8px;
     margin-top: 10px;
