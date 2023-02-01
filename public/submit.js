@@ -44,7 +44,11 @@ function generateForm() {
         'ellicott': {
             'washer': 8,
             'dryer': 10
-        }
+        },
+        'caroline': {
+            'washer': 3,
+            'dryer': 3
+        },
     }
 
     var dropdownContent = '<option value="none">-- Select --</option>'

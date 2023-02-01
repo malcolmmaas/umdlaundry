@@ -51,7 +51,11 @@ function generateForm() {
         'ellicott': {
             'washer': 8,
             'dryer': 10
-        }
+        },
+        'caroline': {
+            'washer': 3,
+            'dryer': 3
+        },
     }
 
     // var dbRef = ref(db, '/' + selectedDorm + '/' + selectedMachine + '/10')
