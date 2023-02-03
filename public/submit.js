@@ -28,17 +28,6 @@ if (dorm != null && dorm != '') {
 }
 if (machine != null && machine != '') machineSelect(machine)
 
-// if (dorm != null) {
-//     selectedDorm = dorm
-//     document.getElementById('dorm').value = dorm
-//     document.getElementById('headerBtn').href = 'submit.html?dorm='+selectedDorm
-// }
-// if (machine != null) {
-//     selectedMachine = machine
-//     document.getElementById('dorm').value = dorm
-//     document.getElementById('headerBtn').href = 'submit.html?dorm='+selectedDorm
-// }
-
 function generateForm() {
     const dormCounts = {
         'ellicott': {
@@ -52,14 +41,9 @@ function generateForm() {
     }
 
     var dropdownContent = '<option value="none">-- Select --</option>'
-    console.log(selectedDorm)
-    console.log(selectedMachine)
-    console.log(dormCounts[selectedDorm][selectedMachine])
     for (const x of Array(dormCounts[selectedDorm][selectedMachine]).keys()) {
         dropdownContent += '<option value="'+(x+1)+'">'+(x+1)+'</option>'
     }
-
-    console.log(dropdownContent)
 
     document.getElementById('unit').innerHTML = dropdownContent
     document.getElementById('restOfForm').style.display = 'block'
@@ -98,9 +82,6 @@ function submitReport() {
     const rating = document.getElementById('rating').value
     const comments = document.getElementById('comments').value
 
-    console.log('boubihujkjk')
-    console.log(ref(db, '/' + selectedDorm + '/' + selectedMachine + '/' + unit.toString() + '/' + Date.now().toString()))
-    console.log('CCCCCCCCCCCCCccc')
     try {
         update(ref(db, '/' + selectedDorm + '/' + selectedMachine + '/' + unit.toString() + '/' + Date.now().toString()), {
             'rating': rating,
@@ -108,20 +89,13 @@ function submitReport() {
         }).then(() => {
             window.location.replace('view.html?dorm='+selectedDorm+'&machine='+selectedMachine)
         }).catch((error) => {
-            console.log('BBBBBBBBBBBBB')
             console.error(error);
             return false
         });
     } catch(err) {
-        console.log('AAAAAAAAAAAAAAAAAAAA')
         console.log(err)
         return false
     }
-
-    // document.getElementById('submitConfirmation').innerHTML = 'Thanks! Submitted at ' + new Date().toLocaleTimeString() + '.'
-    // document.getElementById('submitConfirmation').style.display = 'inline'
-
-
 
     return false
 }
